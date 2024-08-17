@@ -1,23 +1,25 @@
-import { RecoilRoot } from 'recoil';
-import { useRecoilValue } from 'recoil';
-import { networkDataSelector } from './atoms';
+
+import './App.css'
+import { RecoilRoot, useRecoilState } from 'recoil';
+import { todosAtomFamily } from './atoms';
+
 function App() {
-  return (
-    <RecoilRoot>
-      <MainApp />
-    </RecoilRoot>
-  );
+  return <RecoilRoot>
+    <Todo id={1}/>
+    <Todo id={2} />
+  </RecoilRoot>
 }
-function MainApp() {
-  const networkData = useRecoilValue(networkDataSelector);
+
+function Todo({id}) {
+   const [todo, setTodo] = useRecoilState(todosAtomFamily(id));
 
   return (
     <>
-      <div>
-        Network: {networkData.network}
-      </div>
+      {todo.title}
+      {todo.description}
+      <br />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
